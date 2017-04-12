@@ -1,0 +1,17 @@
+version: 0.0
+os: linux
+files:
+  - source: /index.php
+    destination: /var/www/html/
+hooks:
+  BeforeInstall:
+    - location: make build
+      timeout: 300
+      runas: root
+    - location: make build
+      timeout: 300
+      runas: root
+  ApplicationStop:
+    - location: make run
+      timeout: 300
+      runas: root
