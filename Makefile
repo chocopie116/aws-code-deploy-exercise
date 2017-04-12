@@ -1,5 +1,6 @@
-.PHONY: build 
+.PHONY: build
 
+bucketname=tsubasa-code-deploy-exercise
 deployment=xxxxx
 
 run:
@@ -17,14 +18,16 @@ build/artifact:
 	zip artifact.zip artifact
 
 upload/artifact:
-	aws s3 cp artifact.zip s3://tsubasa-code-deploy-exercise/$(deployment)/ --acl public-read
+	aws s3 cp artifact.zip s3://$(bucketname)/$(deployment)/ --acl public-read
 
-deploy:
+deploy/artifact:
 	aws deploy push \
 		--application-name tsubasa-app \
-		--s3-location s3://tsubasa-code-deploy-exercise/$(deployment)/index.html \
+		--s3-location s3://$(bucketname)/$(deployment)/artifact.zip \
 		--source ./ \
 		--region ap-northeast-1
-
-zip:
-	tar xzfv index.html app.zip
+	aws deploy create-deployment \
+		--application-name tsubasa-app\
+		--s3-location bucket=tsubasa-code-deploy-exercise,key=xxxxx/artifact.zip,bundleType=zip,eTag=34068d4ce684b6ad37c78cb10bd41ea7 \
+		--deployment-group-name tsubasa-app-deploygroup \
+		--region ap-northeast-1
