@@ -28,6 +28,6 @@ deploy/artifact:
 		--region ap-northeast-1
 	aws deploy create-deployment \
 		--application-name tsubasa-app\
-		--s3-location bucket=tsubasa-code-deploy-exercise,key=xxxxx/artifact.zip,bundleType=zip,eTag=34068d4ce684b6ad37c78cb10bd41ea7 \
+		--s3-location bucket=$(bucketname),key=xxxxx/artifact.zip,bundleType=zip,eTag=34068d4ce684b6ad37c78cb10bd41ea7 \
 		--deployment-group-name tsubasa-app-deploygroup \
 		--region ap-northeast-1
