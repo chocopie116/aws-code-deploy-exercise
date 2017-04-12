@@ -16,9 +16,8 @@ build/artifact:
 	cp index.html artifact
 	zip artifact.zip artifact
 
-s3copy:
-	aws s3 cp index.html s3://tsubasa-code-deploy-exercise/$(deployment)/ --acl public-read
-
+upload/artifact:
+	aws s3 cp artifact.zip s3://tsubasa-code-deploy-exercise/$(deployment)/ --acl public-read
 
 deploy:
 	aws deploy push \
