@@ -1,5 +1,7 @@
 .PHONY: build 
 
+deployment=xxxxx
+
 run:
 	#php -S localhost:3000
 
@@ -11,6 +13,6 @@ build:
 
 
 s3copy:
-	aws s3 cp index.html s3://tsubasa-code-deploy-exercise/ --acl public-read
+	aws s3 cp index.html s3://tsubasa-code-deploy-exercise/$(deployment)/ --acl public-read
 
 
